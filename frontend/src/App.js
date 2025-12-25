@@ -18,14 +18,14 @@ class App extends Component {
       this.setState({ logedin: false, data: null });
     } else {
       axios.post(
-        "/users/",                                   // <-- API endpoint
+        "/users/",
         {
-          email: "testtwo@test.com",                 // <-- JSON body (no stringify)
+          email: "testtwo@test.com",
           password: "testpassword"
         },
         {
           headers: {
-            "Content-Type": "application/json"       // <-- correct header
+            "Content-Type": "application/json"
           }
         }
       )
@@ -33,11 +33,15 @@ class App extends Component {
         console.log("Login Success:", response.data);
         this.setState({
           logedin: true,
-          data: response.data.data || response.data  // <-- show response data
+          data: response.data.data || response.data
         });
       })
       .catch(error => {
-        console.log("Login Error:", error.response?.data || error);
+        // ❌ Removed optional chaining for Webpack4/Babel compatibility
+        console.log(
+          "Login Error:",
+          (error.response && error.response.data) || error
+        );
         alert("Authentication Failed");
       });
     }
@@ -52,13 +56,17 @@ class App extends Component {
           <div className="logged">
             <h1>Logged In</h1>
             <pre>{JSON.stringify(data, null, 2)}</pre>
-            <button className="button" onClick={this.fetchUser}>Logout</button>
+            <button className="button" onClick={this.fetchUser}>
+              Logout
+            </button>
           </div>
         ) : (
           <div className="unlogged">
             <h1>Email: testtwo@test.com</h1>
             <h1>Password: testpassword</h1>
-            <button className="button" onClick={this.fetchUser}>Login</button>
+            <button className="button" onClick={this.fetchUser}>
+              Login
+            </button>
           </div>
         )}
       </div>
