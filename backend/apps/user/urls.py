@@ -1,7 +1,7 @@
-from django.conf.urls import url
-from . import views
+from django.urls import path
+from .views import index
 
 urlpatterns = [
-    url(r'^registration$', views.registration),
-    url(r'^login$', views.login)
+    path("", index),         # /users/ → index view
+    path("login/", index),    # /users/login/ → optional (same logic)
 ]
