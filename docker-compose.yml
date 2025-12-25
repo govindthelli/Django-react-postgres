@@ -1,0 +1,44 @@
+services:
+  db:
+    image: postgres:12.0
+    container_name: postgres
+    environment:
+      POSTGRES_DB: demo
+      POSTGRES_USER: govind
+      POSTGRES_PASSWORD: govind123
+    networks:
+      - app-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U govind -d demo"]
+      timeout: 5s
+      interval: 5s
+      retries: 10
+  backend:
+    build: ./backend
+    container_name: Django
+    volumes:
+      - media:/app/media
+      - static:/app/staticfiles
+    expose:
+      - "8000"
+    networks:
+      - app-network
+    depends_on:
+      db:
+        condition: service_healthy
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    volumes:
+      - media:/usr/share/nginx/html/static
+      - static:/usr/share/nginx/html/media
+
+networks:
+  app-network:
+volumes:
+  postgres_data:
+  media:
+  static:
