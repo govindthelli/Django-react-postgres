@@ -25,7 +25,7 @@ SECRET_KEY = 'a^$mqlut5_3st4bsm93$m$4h73^k2c5kb+u%s60v&!6%-%w)a7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = ['13.222.236.153','localhost','127.0.0.1']
 
 
 # Application definition
@@ -115,7 +115,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 CORS_ORIGIN_WHITELIST = (
-    'localhost:3000'
+    'http://13.222.236.153:3000',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000'
 )
 CORS_ALLOW_METHODS = (
     'DELETE',
