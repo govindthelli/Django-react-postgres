@@ -30,11 +30,14 @@ services:
         condition: service_healthy
   frontend:
     build: ./frontend
+    container_name: React
     ports:
       - "3000:80"
     volumes:
       - media:/usr/share/nginx/html/static
       - static:/usr/share/nginx/html/media
+    networks:
+      - app-network
 
 networks:
   app-network:
