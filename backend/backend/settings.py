@@ -25,7 +25,7 @@ SECRET_KEY = 'a^$mqlut5_3st4bsm93$m$4h73^k2c5kb+u%s60v&!6%-%w)a7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1::3000', 'localhost']
+ALLOWED_HOSTS = [*]
 
 
 # Application definition
@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_forum',
-        'USER': 'hizir',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'NAME': 'demo',
+        'USER': 'govind',
+        'PASSWORD': 'govind123',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
