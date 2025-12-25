@@ -1,16 +1,20 @@
 const path = require("path");
 const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
-  mode: "development",
+  mode: "production", // IMPORTANT for build inside docker
+
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
-        loader: "babel-loader",
-        options: { presets: ["@babel/env"] }
+        use: {
+          loader: "babel-loader",
+          options: { presets: ["@babel/preset-env"] }
+        }
       },
       {
         test: /\.css$/,
@@ -18,17 +22,19 @@ module.exports = {
       }
     ]
   },
+
   resolve: { extensions: ["*", ".js", ".jsx"] },
+
   output: {
-    path: path.resolve(__dirname, "dist/"),
-    publicPath: "/dist/",
-    filename: "bundle.js"
+    path: path.resolve(__dirname, "dist/"), // <-- REQUIRED for docker
+    filename: "bundle.js",
+    publicPath: "/", // <-- Avoids 404 on refresh in NGINX
   },
-  devServer: {
-    contentBase: path.join(__dirname, "public/"),
-    port: 3000,
-    publicPath: "http://localhost:3000/dist/",
-    hotOnly: true
-  },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "public/index.html", // from your project
+      filename: "index.html"         // generated inside dist/
+    })
+  ]
 };
