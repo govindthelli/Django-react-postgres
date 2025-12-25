@@ -43,6 +43,12 @@ INSTALLED_APPS = [
     'corsheaders'
 ]
 
+STATIC_URL='/static/'
+STATIC_ROOT='/app/staticfiles'
+
+MEDIA_URL='/media/'
+MEDIA_ROOT='/app/media'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
