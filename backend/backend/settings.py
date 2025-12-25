@@ -25,7 +25,14 @@ SECRET_KEY = 'a^$mqlut5_3st4bsm93$m$4h73^k2c5kb+u%s60v&!6%-%w)a7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['13.222.236.153','localhost','127.0.0.1']
+ALLOWED_HOSTS = [
+    '13.222.236.153',  # your server public IP
+    'localhost',
+    '127.0.0.1',
+    'backend',          # IMPORTANT for Docker
+    '0.0.0.0'
+]
+
 
 
 # Application definition
@@ -114,11 +121,13 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-CORS_ORIGIN_WHITELIST = (
+CORS_ORIGIN_WHITELIST = [
     'http://13.222.236.153:3000',
     'http://localhost:3000',
-    'http://127.0.0.1:3000'
-)
+    'http://127.0.0.1:3000',
+    'http://frontend:3000'  # Docker container name
+]
+
 CORS_ALLOW_METHODS = (
     'DELETE',
     'GET',
